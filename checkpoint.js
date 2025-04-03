@@ -7,8 +7,21 @@ function mayorMenosMenor(arr) {
     // Tu código:
     //var resta = 0;  
     //var maximo= 0;
+     
+    var maximo = arr[0];
+    var minimo = arr[0];
 
+    for(var i = 1; i< arr.length; i++){
+        if(arr[i]> maximo){
+            maximo = arr[i];
+        }
+        if(arr[i]< minimo){
+            minimo = arr[i];
+        }
+    }
+    return maximo-minimo;
 };
+
 
 function ingredienteEnMalEstado(menu, comida, ingrediente) {
     // El ingrediente de cierta comida está en mal estado. Hay que sacar los ingredientes próximos a éste,
@@ -28,7 +41,21 @@ function ingredienteEnMalEstado(menu, comida, ingrediente) {
     // NOTA: No utilizar el método "includes".
     //
     // Tu código:
+    var ingredientes = menu[comida];
+        if(!ingredientes)return "El menu esta perfecto";
+        var index = -1;
+        for(var i=0; i< ingredientes.length; i++){
+            if(ingredientes[i] === ingrediente){
+                index = i;
+                break;
+            }
+        }
+        if(index === -1) return "El menu esta perfecto";
 
+        var contaminados = [];
+        if(index>0) contaminados.push(ingredientes[index])
+
+    
 }
 
 
@@ -51,6 +78,19 @@ function bienvenidoSr(persona) {
     //
     // Tu código:
    
+    if(!persona.invitado){
+        return "Disculpe señor, no está invitado a la fiesta";
+    }
+    if(persona.nombre && persona.apellido){
+        return `${persona.nombre} ${persona.apellido}, un gusto tenerlo nuevamente! bienvenido`;
+    }
+    if(persona.apellido){
+        return `Bienvenido Sr. ${persona.apellido}`;
+    }
+    if(persona.nombre){
+        return `Hola ${persona.nombre} tu mesa esta lista`;
+    }
+    
 };
 
 function obtenerSoloLosMejores(estudiantes, nota1, nota2) {
@@ -66,7 +106,10 @@ function obtenerSoloLosMejores(estudiantes, nota1, nota2) {
     // obtenerSoloLosMejores(estudiantes, 15, 15); retorna => ["Fulanito Rodriguez", "Perengano Leiria"];
     //
     // Tu código:    
-
+     {return estudiantes.filter(estudiante => estudiante.check1 >= nota1 && estudiante.check2>= nota2).map
+      (estudiante=> `${estudiante.nombre} ${estudiante.apellido}`);
+     }
+ 
 };
 
 function buscaDestruye(arreglo, num) {
@@ -78,7 +121,7 @@ function buscaDestruye(arreglo, num) {
     // Ej: buscaDestruye([1, 2, 3, 4, 1], 1) devuelve => [2, 3, 4]
     //
     // Tu código aca:
-
+     return arreglo.filter(elemento => elemento !==num);
 };
 
 function clavesUnicas(obj1, obj2) {
@@ -90,7 +133,15 @@ function clavesUnicas(obj1, obj2) {
     // clavesUnicas(obj1, obj2) retorna => ["apellido", "segundoNombre"];
     //
     // Tu código`:
+    const keys1= Object.keys(obj1);
+    const keys2= Object.keys(obj2);
+
+    const unicas1= keys1.filter(key =>! keys2.includes(key));
+    const unicas2= keys2.filter(key =>! keys1.includes(key));
+
+    return[unicas1,unicas2];
     
+
 } 
       
 function invertirLetras(frase) {   
@@ -102,7 +153,18 @@ function invertirLetras(frase) {
     //  'i' === 'i'.toLowerCase(); -> es lower;
     //  'I' === 'I'.toLowerCase()l -> no es lower;
     // Tu código:
+    let resultado = ``;
 
+    for (let i= 0;i < frase.length; i++){
+        let char = frase[i];
+
+        if(char === char.toLowerCase()){
+            resultado += char.toUpperCase();
+        } else{
+            resultado += char.toLowerCase();
+        }
+    }
+    return resultado;
 };
 
 // =======================================================================
@@ -172,7 +234,14 @@ function intercambio(objeto) {
     // NOTA: No utilizar métodos de Object (values, keys, entries);
     //
     // Tu código:
+    const nuevoObjeto = {};
 
+    for(let clave in objeto){
+        if(objeto.hasOwnProperty(clave)){
+            nuevoObjeto[objeto[clave]]= clave;
+        }
+    }
+    return nuevoObjeto;
 }
 
 // No modificar nada debajo de esta línea
